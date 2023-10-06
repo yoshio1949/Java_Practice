@@ -15,6 +15,7 @@
 		名前を入力してください： <input type="text" name="name">
 		<button type="submit">送信</button>
 	</form>	
+	
 	<% } %>
 </body>
 </html>
