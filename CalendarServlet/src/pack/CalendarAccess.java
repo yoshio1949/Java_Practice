@@ -71,7 +71,6 @@ public class CalendarAccess extends HttpServlet {
 		cal.add(Calendar.MONTH, 1);
 		cal.add(Calendar.DATE, -1);
 		lastday = cal.get(Calendar.DATE);
-		lastday = 30;
 		int date = 1;
 		int maxday = 6 * 7;
 		StringBuilder sb = new StringBuilder();
