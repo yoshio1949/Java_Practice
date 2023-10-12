@@ -1,6 +1,8 @@
 package pack;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,7 +40,20 @@ public class CreateMemo extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// メモを入れる配列を作る
+		List<String> memoList = new ArrayList<String>();
+		// 文字コードを指定
+//		List<String> nextList = (List<String>)request.getAttribute("nextList");
+		request.setCharacterEncoding("UTF-8");
+		// formから値を取得
+		String memo = request.getParameter("memo");
+		// 取得した値を配列に代入
+		memoList.add(memo);
+		// 配列をJSPに渡す
+		request.setAttribute("list", memoList);
+		
+//		List<String> secondList = (List<String>) request.getAttribute("nextList");
+//		System.out.println(nextList);
 		doGet(request, response);
 	}
 
