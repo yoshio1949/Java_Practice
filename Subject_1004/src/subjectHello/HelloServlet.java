@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,8 +39,8 @@ public class HelloServlet extends HttpServlet {
 		String user = "study";
 		String password = "diamond-f";
 		
-		// 社員名を格納するList
-		List<String> employeeName = new ArrayList<>();
+		// データを格納するList
+		ArrayList<String[]> list = new ArrayList<String[]>();
 		
 		// データベースに接続する
 		try {
@@ -52,10 +51,17 @@ public class HelloServlet extends HttpServlet {
 				// データベースへのアクセス
 				Statement st = con.createStatement();){
 				// SQL文の入力
-				ResultSet res = st.executeQuery("SELECT employee_name FROM employee");
+				ResultSet res = st.executeQuery("SELECT * FROM employee");
 				
 				while(res.next()) {
-					employeeName.add(res.getString("employee_name"));
+					String[] data = new String[6];
+					data[0] = res.getString("employee_id");
+					data[1] = res.getString("employee_name");
+					data[2] = res.getString("age");
+					data[3] = res.getString("address");
+					data[4] = res.getString("department_id");
+					data[5] = res.getString("hire_date");
+					list.add(data);
 				}
 			} catch(SQLException e) {
 				e.printStackTrace();
@@ -63,10 +69,8 @@ public class HelloServlet extends HttpServlet {
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println(employeeName);
-		
-		request.setAttribute("employeeName", employeeName);
+				
+		request.setAttribute("data", list);
 		
 		
 		// viewにindex.jspのリンクを代入する
