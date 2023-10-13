@@ -7,10 +7,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>7ちゃんねる</title>
+<title>ぶんちゃんねる</title>
 </head>
 <body style="width:800px;margin:auto;">
-	<h2>７ちゃんねる</h2>
+	<h2>ぶんちゃんねる</h2>
 	<form method="post" action="./CreateMemo">
 		<input type="text" name="memo_text">
 		<input type="submit" value="投稿">
