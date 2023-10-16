@@ -11,8 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>社員一覧</h1>
 	<form action="./IndexController" method="get">
-		<input type="text" name="keyword">
+		<input type="text" name="keyword"> 
 		<input type="submit" value="検索">
 	</form>
 	<table border=1>
@@ -24,17 +25,18 @@
 			<td>入社年月日</td>
 		</tr>
 		<% for (int i = 0; i < list.size(); i++) { %>
-			<tr>
-				<td><%= list.get(i).getEmployeeId() %></td>
-				<td><a href="#"><%= list.get(i).getEmployeeName() %></a></td>
-				<td><%= list.get(i).getAge() %></td>
-				<td><%= list.get(i).getAddress() %></td>
-				<td><%= list.get(i).getDate() %></td>
-				<%-- <td>
+		<tr>
+			<td><%=list.get(i).getEmployeeId()%></td>
+			<td><a href="/employee-list/employee/<%=list.get(i).getEmployeeId()%>" name="employeeId"><%=list.get(i).getEmployeeName()%></a></td>
+			<td><%=list.get(i).getAge()%></td>
+			<td><%=list.get(i).getAddress()%></td>
+			<td><%=list.get(i).getDate()%></td>
+			<%-- <td>
 					<a href="/Subject_1004/Update?id=<%=employee.getID()%>">更新</a>
 					<a href="/Subject_1004/Delete?id=<%=employee.getID()%>">削除</a>
+					<a href="/employee-list/IndexController/<%= list.get(i).getEmployeeId() %>">
 				</td> --%>
-			</tr>
+		</tr>
 		<% } %>
 	</table>
 </body>

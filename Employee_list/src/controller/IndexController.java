@@ -70,7 +70,6 @@ public class IndexController extends HttpServlet {
     					employee.setAddress(res.getString("address"));
     					employee.setDepartmentId(res.getInt("department_id"));
 //    					employee.setDate(res.getDate("hire_date"));
-
     					list.add(employee);
     				}
     			} catch(SQLException e) {
