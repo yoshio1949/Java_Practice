@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,7 +25,7 @@ import model.Employee;
 public class ShowController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+    /**y
      * @see HttpServlet#HttpServlet()
      */
     public ShowController() {
@@ -39,7 +40,7 @@ public class ShowController extends HttpServlet {
 		//URLから社員IDを取得
 		String urlId = request.getPathInfo();
 		int employeeId = Integer.parseInt(urlId.replace("/", ""));
-//		 データベースに接続するための情報
+		//データベースに接続するための情報
     	String url = "jdbc:mysql://localhost/study";
     	String user = "study";
     	String password = "diamond-f";
@@ -85,8 +86,38 @@ public class ShowController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("ポストメソッドが来た");
+		//URLから社員IDを取得
+		String urlId = request.getPathInfo();
+		int employeeId = Integer.parseInt(urlId.replace("/", ""));
+		//文字コードを指定
+		request .setCharacterEncoding("utf-8");
+		//データベースに接続するための情報
+    	String url = "jdbc:mysql://localhost/study";
+    	String user = "study";
+    	String password = "diamond-f";
+    	
+    	try {
+    		//JDBCドライバの検出
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+    		
+    		try (Connection con = DriverManager.getConnection(url, user, password);){
+    			String sql = "update employee set "
+    					+ "employee_name=?, address=?" 
+    					+ "where employee_id=" + employeeId  ;
+    			PreparedStatement pstmt = con.prepareStatement(sql);
+    			pstmt.setString(1, request.getParameter("employeeName"));
+    			pstmt.setString(2, request.getParameter("address"));
+    			int count = pstmt.executeUpdate();
+    			System.out.println(employeeId);
+    		} catch(SQLException e) {
+    			e.printStackTrace();
+    		}
+    	} catch(ClassNotFoundException e) {
+    		e.printStackTrace();
+    	}
+    	
+//    	response.sendRedirect("/employee-list/employee/" + employeeId);
+    	response.sendRedirect("/employee-list/IndexController");
 	}
 
 }
