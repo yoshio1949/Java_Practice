@@ -76,7 +76,6 @@ public class ShowController extends HttpServlet {
         request.setAttribute("list", list);
         
         String view = "/WEB-INF/view/show.jsp";
-//      RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(view);
         RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         dispatcher.forward(request, response);
     }
@@ -86,13 +85,12 @@ public class ShowController extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //URLから社員IDを取得
         String urlId = request.getPathInfo();
         int employeeId = Integer.parseInt(urlId.replace("/", ""));
         //文字コードを指定
         request .setCharacterEncoding("utf-8");
         Connection con = null;
-
+        
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(URL, USER, PASSWORD);
